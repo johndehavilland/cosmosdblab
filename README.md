@@ -2,5 +2,5 @@
 
 ## There are two labs contained here
 
-1. [Intro to Cosmos DB](Intro to Cosmos DB/README.MD)
+1. [Intro to Cosmos DB](IntroToCosmosDB/README.MD)
 2. Advanced Analytics
