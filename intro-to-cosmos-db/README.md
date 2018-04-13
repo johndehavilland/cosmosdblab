@@ -1,30 +1,5 @@
----
-title: Build a Node.js web app for Azure Cosmos DB | Microsoft Docs
-description: This Node.js tutorial explores how to use Microsoft Azure Cosmos DB to store and access data from a Node.js Express web application hosted on Azure Websites.
-keywords: Application development, database tutorial, learn node.js, node.js tutorial
-services: cosmos-db
-documentationcenter: nodejs
-author: SnehaGunda
-manager: kfile
 
-ms.assetid: 9da9e63b-e76a-434e-96dd-195ce2699ef3
-ms.service: cosmos-db
-ms.workload: data-services
-ms.tgt_pltfrm: na
-ms.devlang: nodejs
-ms.topic: article
-ms.date: 03/23/2018
-ms.author: sngun
-
----
-# <a name="_Toc395783175"></a>Build a Node.js web application using Azure Cosmos DB
-> [!div class="op_single_selector"]
-> * [.NET](sql-api-dotnet-application.md)
-> * [Node.js](sql-api-nodejs-application.md)
-> * [Java](sql-api-java-application.md)
-> * [Python](sql-api-python-application.md)
-> 
-> 
+# Cosmos DB Application Lab
 
 This Node.js tutorial shows you how to use Azure Cosmos DB and the SQL API to store and access data from a Node.js Express application hosted on Azure Websites. You build a simple web-based task-management application, a ToDo app, that allows creating, retrieving, and completing tasks. The tasks are stored as JSON documents in Azure Cosmos DB. This tutorial walks you through the creation and deployment of the app and explains what's happening in each snippet.
 
@@ -32,7 +7,7 @@ This Node.js tutorial shows you how to use Azure Cosmos DB and the SQL API to st
 
 Don't have time to complete the tutorial and just want to get the complete solution? Not a problem, you can get the complete sample solution from [GitHub][GitHub]. Just read the [Readme](https://github.com/Azure-Samples/documentdb-node-todo-app/blob/master/README.md) file for instructions on how to run the app.
 
-## <a name="_Toc395783176"></a>Prerequisites
+## Prerequisites
 > [!TIP]
 > This Node.js tutorial assumes that you have some prior experience using Node.js and Azure Websites.
 > 
