@@ -3,4 +3,4 @@
 ## Heading two
 
 ## Lab
-[Demo Preview](search.htm)
+[Demo Preview](search-app/search.htm)

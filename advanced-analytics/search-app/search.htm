@@ -5,7 +5,21 @@
 
     </head>
     <body>
-            <form action="/quotes" method="POST">
+            <div class="row justify-content-md-center">
+                    <div class="col-md-4 col-md-offset-4">
+                        <div class="form-group">
+                            <label for="code">Azure Search URI</label>
+                            <input type="text" id="azsearch" placeholder="az search" name="name" class="form-control input-lg">
+                            <label for="code">Azure Search Key</label>
+                            <input type="text" id="azsearchkey" placeholder="az search key" name="name" class="form-control input-lg">
+                            <label for="code">Azure Search Index</label>
+                            <input type="text" id="azsearchindex" placeholder="az search index" name="name" class="form-control input-lg">
+                        </div>
+                    </div>
+                </div>
+           
+
+           
                 <div class="row justify-content-md-center">
                     <div class="col-md-4 col-md-offset-4">
                         <div class="form-group">
@@ -14,12 +28,10 @@
                         </div>
                     </div>
                 </div>
-            </form>
-
+           
             <script>
                     $(function () {
-                        var index = "https://<name-of-search>.search.windows.net/indexes/<index_name>/docs?";
-                        var params = encodeURI("api-version=2016-09-01&search=");
+                    
 
                         $("#search").autocomplete({
                             select: function (e, ui) {
@@ -28,10 +40,15 @@
                             },
                     
                             source: function (request, response) {
+                                var searchName =  $("#azsearch").val();
+                                var searchIndexName =  $("#azsearchindex").val();
+                                var searchKey =  $("#azsearchkey").val();
+                                var index = "https://"+searchName+".search.windows.net/indexes/"+searchIndexName+"/docs?";
+                                var params = encodeURI("api-version=2016-09-01&search=");
                                 $.ajax({
                                    method: "GET",
                                     url: index + params+request.term,
-                                    headers: {'api-key': "<key>", "Access-Control-Allow-Origin": "*"},
+                                    headers: {'api-key': searchKey, "Access-Control-Allow-Origin": "*"},
                                     contentType: "application/json",
                                     success: function (data) {
                                         //var ParsedObject = $.parseJSON(data);
