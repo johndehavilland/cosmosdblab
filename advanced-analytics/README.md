@@ -46,7 +46,7 @@ We are going to be collecting tweets based on a keyword and pushing those to Cos
 4. Enter this as the query
 >SELECT * FROM c WHERE c._ts >= @HighWaterMark ORDER BY c._ts
 5. Mark the text field as *retrievable* and *searchable*
-![Index data setup in Azure search](./images/import-index.png)
+![Index data setup in Azure search](./images/index-import.png)
 6. Set up schedule to run every 10minutes.
 
 ## Setup front end application
