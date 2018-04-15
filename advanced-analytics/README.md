@@ -22,7 +22,6 @@ We are going to be collecting tweets based on a keyword and pushing those to Cos
 
 6. Set the interval to 1 minute.
 
-
 7. Choose *new step* and then *add an action*
 
 8. Search for Cosmos and choose the *Query documents* option.
@@ -31,6 +30,7 @@ We are going to be collecting tweets based on a keyword and pushing those to Cos
 9. Enter this as the query: `SELECT top 1 c.id FROM c ORDER BY c.id2 DESC`
 
 10. Choose *new step* and choose *condition*
+
 ![condition](./images/condition.png)
 
 11. Set the value to be **_count** and set it to equal 0.
@@ -55,16 +55,20 @@ We are going to be collecting tweets based on a keyword and pushing those to Cos
 21. Search for *twitter* and scroll down for the *Search tweets* option and choose that.
 ![Twitter connector](./images/twitter.png)
 22. Enter a search term - anything you like though ideally something that returns a lot of tweets (e.g. Microsoft or Azure)
-23. Expand advanced options and in *sinceid* enter the following `@{items('For_each')['id']}`
+23. Expand advanced options and in *sinceid* enter the following `@{items('For_each_2')['id']}`
 24. Choose *new step* and, expand the *more* option and choose *for each loop*
 25. Add a new action within this for each module and search for Cosmos. Choose the *Create or update a document* option
 26. Enter the following as the document to create: `{
-            "id": "@items('For_each_2')?['TweetId']",
-            "text": "@items('For_each_2')['TweetText']",
-            "id2": "@items('For_each_2')?['TweetId']"
+            "id": "@items('For_each_3')?['TweetId']",
+            "text": "@items('For_each_3')['TweetText']",
+            "id2": "@items('For_each_3')?['TweetId']"
         }`
 
 27. Save your logic app and then press **Run** to try it out.
+
+The full logic app should like this
+
+![Full logic app flow](./images/full-logic-app.png)
 
 ## Populating Azure Search
 
