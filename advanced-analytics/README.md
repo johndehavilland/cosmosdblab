@@ -18,6 +18,7 @@ We are going to be collecting tweets based on a keyword and pushing those to Cos
 ![Blank logic app](./images/blank-create.png)
 
 5. Search for the schedule connector and choose that.
+
 ![Schedule connector](./images/schedule.png)
 
 6. Set the interval to 1 minute.
@@ -36,7 +37,9 @@ We are going to be collecting tweets based on a keyword and pushing those to Cos
 11. Set the value to be **_count** and set it to equal 0.
 
 12. Under the **true** condition add an action step.
+
 ![Conditional options](./images/true-select.png)
+
 13. Search for *twitter* and scroll down for the *Search tweets* option and choose that.
 ![Twitter connector](./images/twitter.png)
 14. Enter a search term - anything you like though ideally something that returns a lot of tweets (e.g. Microsoft or Azure)
@@ -77,7 +80,7 @@ The full logic app should like this
 ![Import data into Azure search](./images/import.png)
 3. From the data source navigate to your Cosmos Db Instance
 4. Enter this as the query
->SELECT * FROM c WHERE c._ts >= @HighWaterMark ORDER BY c._ts
+        SELECT * FROM c WHERE c._ts >= @HighWaterMark ORDER BY c._ts
 5. Mark the text field as *retrievable* and *searchable*
 ![Index data setup in Azure search](./images/index-import.png)
 6. Set up schedule to run every 10minutes.
