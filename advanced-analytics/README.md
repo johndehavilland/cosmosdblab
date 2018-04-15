@@ -13,29 +13,58 @@ We are going to be collecting tweets based on a keyword and pushing those to Cos
 1. In the Azure Portal go to create and search for Logic Apps.
 2. Enter the details to deploy the logic app - ideally choosing the same region as your Cosmos DB instance.
 3. Once the logic app has been created, navigate to it and open the designer.
-![Blank logic app](./images/create.png)
+
 4. Within the designer, scroll down and choose the Blank App option
 ![Blank logic app](./images/blank-create.png)
-5. Seach for the schedule connector and choose that.
-6. Set the interval to 1 minute.
+
+5. Search for the schedule connector and choose that.
 ![Schedule connector](./images/schedule.png)
+
+6. Set the interval to 1 minute.
+
+
 7. Choose *new step* and then *add an action*
+
 8. Search for Cosmos and choose the *Query documents* option.
 ![Blank logic app](./images/cosmos.png)
-9. Enter this as the query:
-        SELECT top 1 * FROM c ORDER BY c._ts DESC
-10. Choose *new step* and, expand the *more* option and choose *for each loop*
-![for each loop](./images/foreach.png)
-11. Select **Documents** as the output.
-12. Now choose *add an action* within the for each module.
+
+9. Enter this as the query: `SELECT top 1 c.id FROM c ORDER BY c.id2 DESC`
+
+10. Choose *new step* and choose *condition*
+![condition](./images/condition.png)
+
+11. Set the value to be **_count** and set it to equal 0.
+
+12. Under the **true** condition add an action step.
+![Conditional options](./images/true-select.png)
 13. Search for *twitter* and scroll down for the *Search tweets* option and choose that.
 ![Twitter connector](./images/twitter.png)
-12. Enter a search term - anything you like though ideally something that returns a lot of tweets (e.g. Microsoft or Azure)
-13. Expand advanced options and in *sinceid* select *Current Item*
-14. Add a new action and search for Cosmos. Choose the *Create or update a document* option
-15. Enter the following as the document to create:
+14. Enter a search term - anything you like though ideally something that returns a lot of tweets (e.g. Microsoft or Azure)
+15. Choose *new step* and, expand the *more* option and choose *for each loop*
+16. Add a new action within this *for each* module and search for Cosmos. Choose the *Create or update a document* option
+17. Enter the following as the document to create: `{
+            "id": "@items('For_each')?['TweetId']",
+            "text": "@items('For_each')['TweetText']",
+            "id2": "@items('For_each')?['TweetId']"
+        }`
 
-16. Save your logic app and then press **Run** to try it out.
+18. Under the *false* option, choose *new step* and, expand the *more* option and choose *for each loop*
+![for each loop](./images/foreach.png)
+19. Select **Documents** as the output.
+20. Now choose *add an action* **within** the for each module.
+21. Search for *twitter* and scroll down for the *Search tweets* option and choose that.
+![Twitter connector](./images/twitter.png)
+22. Enter a search term - anything you like though ideally something that returns a lot of tweets (e.g. Microsoft or Azure)
+23. Expand advanced options and in *sinceid* enter the following `@{items('For_each')['id']}`
+24. Choose *new step* and, expand the *more* option and choose *for each loop*
+25. Add a new action within this for each module and search for Cosmos. Choose the *Create or update a document* option
+26. Enter the following as the document to create: `{
+            "id": "@items('For_each_2')?['TweetId']",
+            "text": "@items('For_each_2')['TweetText']",
+            "id2": "@items('For_each_2')?['TweetId']"
+        }`
+
+27. Save your logic app and then press **Run** to try it out.
 
 ## Populating Azure Search
 
@@ -52,8 +81,5 @@ We are going to be collecting tweets based on a keyword and pushing those to Cos
 ## Setup front end application
 
 1. Within this repo there is a simple HTML page (under the search-app folder). Run this locally in your browser. It will ask you for three items - Azure Search Name, Search Key and Index Name. You can get these from your Azure Search instance in the portal. 
+
 2. Once you have entered these, you should be able to search across all your collected tweets using the search box.
-
-
-## Lab
-[Demo Preview](search-app/search.htm)
