@@ -118,7 +118,7 @@ That takes care of all the initial setup and configuration, now let’s get down
     });    
     ```
 
-2. Add code for querying cosmos db:
+2. Add code for querying cosmos db by replacing `<find data in database>`:
 
     ```nodejs
     self.client.queryDocuments(self.collection._self, querySpec).toArray(function(err, results) {
@@ -127,7 +127,7 @@ That takes care of all the initial setup and configuration, now let’s get down
         } else {
             callback(null, results);
         }
-        });
+    });
     ```
 
 3. Add code for creating a document:
@@ -162,7 +162,7 @@ That takes care of all the initial setup and configuration, now let’s get down
             }
             });
         }
-        });
+    });
     ```
 
 5. Add code to get a specific item from cosmos db:
