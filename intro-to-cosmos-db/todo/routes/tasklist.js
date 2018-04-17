@@ -14,11 +14,13 @@ TaskList.prototype = {
 
     addTask: function(req, res) {
         let self = this;
+
         <add a task to database>
     },
 
     completeTask: function(req, res) {
         let self = this;
+        
         <update status of task>
     }
 };

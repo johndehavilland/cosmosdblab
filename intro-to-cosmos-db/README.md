@@ -185,7 +185,7 @@ That takes care of all the initial setup and configuration, now let’s get down
 6. Save and close the **task-model.js** file. 
 
 ### Create the controller
-1. In **routes/tasklist.js** add code to get list of tasks from Cosmos DB by replacing ``:
+1. In **routes/tasklist.js** add code to get list of tasks from Cosmos DB by replacing `<get tasks to show on UI>`:
 
     ```nodejs
     let querySpec = {
@@ -209,8 +209,8 @@ That takes care of all the initial setup and configuration, now let’s get down
         });
     });
     ```
-    
-2. Add code to create a task object and insert it:
+
+2. Add code to create a task object and insert it by replacing `<add a task to database>`:
     ```nodejs
     let item = req.body;
 
@@ -223,7 +223,7 @@ That takes care of all the initial setup and configuration, now let’s get down
     });
     ```
 
-3. Add some code to update a task's status:
+3. Add some code to update a task's status by replacing `<update status of task>`:
 
     ```nodejs
     let completedTasks = Object.keys(req.body);
