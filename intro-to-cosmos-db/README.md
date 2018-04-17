@@ -376,7 +376,7 @@ Let's add some intelligence to the app to allow you to upload photos of handwrit
 2. Search for *Computer Vision API* and create this service.
 
 ### Update App to use this service
-1. Add the following to the index.jade file to create the upload form:
+1. Add the following to the bottom of the **index.jade** file to create the upload form:
 
     ```nodejs
         form(method="post", enctype="multipart\/form-data", action="/handwritingtask")
@@ -406,21 +406,21 @@ Let's add some intelligence to the app to allow you to upload photos of handwrit
                 'Ocp-Apim-Subscription-Key': '<vision api key>'
             },
             body: req.content
-            };
+        };
             
-            request.post(options, function (error, response, body) {
-                console.log(body);
-                //TODO fix this - need to parse the result and create item object
-                let item = body;
+        request.post(options, function (error, response, body) {
+            console.log(body);
+            //TODO fix this - need to parse the result and create item object
+            let item = body;
 
-                self.taskModel.addItem(item, function(err) {
+            self.taskModel.addItem(item, function(err) {
                 if (err) {
                     throw err;
                 }
 
                 res.redirect('/');
             });
-        }
+        });
     }
     ```
 3. Update the `<vision api key>` in the above with your cognitive service key.
