@@ -199,14 +199,14 @@ That takes care of all the initial setup and configuration, now let’s get down
         };
 
         self.taskModel.find(querySpec, function(err, items) {
-        if (err) {
-            throw err;
-        }
+            if (err) {
+                throw err;
+            }
 
-        res.render('index', {
-            title: 'My ToDo List ',
-            tasks: items
-        });
+            res.render('index', {
+                title: 'My ToDo List ',
+                tasks: items
+            });
         });
         ```
 2. Add code to create a task object and insert it:
@@ -214,11 +214,11 @@ That takes care of all the initial setup and configuration, now let’s get down
     let item = req.body;
 
     self.taskModel.addItem(item, function(err) {
-    if (err) {
-        throw err;
-    }
+        if (err) {
+            throw err;
+        }
 
-    res.redirect('/');
+        res.redirect('/');
     });
     ```
 
@@ -240,9 +240,9 @@ That takes care of all the initial setup and configuration, now let’s get down
         },
         function goHome(err) {
             if (err) {
-            throw err;
+                throw err;
             } else {
-            res.redirect('/');
+                res.redirect('/');
             }
         }
     );
