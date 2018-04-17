@@ -137,11 +137,11 @@ That takes care of all the initial setup and configuration, now let’s get down
     item.completed = false;
 
     self.client.createDocument(self.collection._self, item, function(err, doc) {
-    if (err) {
-        callback(err);
-    } else {
-        callback(null, doc);
-    }
+        if (err) {
+            callback(err);
+        } else {
+            callback(null, doc);
+        }
     });
     ```
 
