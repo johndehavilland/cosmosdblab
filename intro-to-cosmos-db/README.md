@@ -23,26 +23,9 @@ Let's start by creating an Azure Cosmos DB account. If you already have an accou
 
 [!INCLUDE [cosmos-db-keys](../../includes/cosmos-db-keys.md)]
 
-## Step 2: Create a new Node.js application
-Now let's learn to create a basic Hello World Node.js project using the [Express](http://expressjs.com/) framework.
-
-1. Open your favorite terminal, such as the Node.js command prompt.
-2. Navigate to the directory in which you'd like to store the new application.
-3. Use the express generator to generate a new application called **todo**.
-   
-        express todo
-4. Open your new **todo** directory and install dependencies.
-   
-        cd todo
-        npm install
-5. Run your new application.
-   
-        npm start
-6. You can view your new application by navigating your browser to [http://localhost:3000](http://localhost:3000).
-   
-    ![Starting of node.js app](./media/sql-api-nodejs-application/cosmos-db-node-js-express.png)
-
-    Then, to stop the application, press CTRL+C in the terminal window and then, on Windows machines only, click **y** to terminate the batch job.
+## Step 2: Download NodeJS Cosmos DB Framework app
+1. Clone this repository and in a terminal navigate to the ToDo app.
+2. Run `npm install`
 
 ## Step 3: Install additional modules
 The **package.json** file is one of the files created in the root of the project. This file contains a list of additional modules that are required for your Node.js application. Later, when you deploy this application to Azure Websites, this file is used to determine which modules need to be installed on Azure to support your application. We still need to install two more packages for this tutorial.
