@@ -391,6 +391,8 @@ Let's add some intelligence to the app to allow you to upload photos of handwrit
 2. Open **tasklist.js** under routes and add the following task:
 
     ```nodejs
+    ,
+
     handwritingTask: function(req, res) {
         var options = {
             url: 'https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze',
@@ -401,7 +403,7 @@ Let's add some intelligence to the app to allow you to upload photos of handwrit
             },
             headers: {
                 'Content-Type': 'application/octet-stream',
-                'Ocp-Apim-Subscription-Key': '<key>'
+                'Ocp-Apim-Subscription-Key': '<vision api key>'
             },
             body: req.content
             };
@@ -418,14 +420,16 @@ Let's add some intelligence to the app to allow you to upload photos of handwrit
 
                 res.redirect('/');
             });
-    }
+        }
     }
     ```
-3. Update the key in the above with your cognitive service key.
+3. Update the `<vision api key>` in the above with your cognitive service key.
 4. Add the following to app.js:
     ```nodejs
     app.post('/handwritingtask', taskList.handwritingTask);
     ```
+5. Tst the application on your local machine, run `npm start` in the terminal to start your application, then refresh your [http://localhost:3000](http://localhost:3000) browser page. 
+
 
 [Node.js]: http://nodejs.org/
 [Git]: http://git-scm.com/
