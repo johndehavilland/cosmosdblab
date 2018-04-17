@@ -130,7 +130,7 @@ That takes care of all the initial setup and configuration, now let’s get down
     });
     ```
 
-3. Add code for creating a document:
+3. Add code for creating a document by replacing `<create a document in cosmosdb>`:
 
     ```nodejs
     item.date = Date.now();
@@ -145,7 +145,7 @@ That takes care of all the initial setup and configuration, now let’s get down
     });
     ```
 
-4. Add code to update a document:
+4. Add code to update a document by replacing `<update an existing item in cosmosdb>`:
 
     ```nodejs
     self.getItem(itemId, function(err, doc) {
@@ -155,17 +155,17 @@ That takes care of all the initial setup and configuration, now let’s get down
             doc.completed = true;
 
             self.client.replaceDocument(doc._self, doc, function(err, replaced) {
-            if (err) {
-                callback(err);
-            } else {
-                callback(null, replaced);
-            }
+                if (err) {
+                    callback(err);
+                } else {
+                    callback(null, replaced);
+                }
             });
         }
     });
     ```
 
-5. Add code to get a specific item from cosmos db:
+5. Add code to get a specific item from cosmos db by replacing `<get a specific item>`:
 
     ```nodejs
     let querySpec = {
@@ -185,8 +185,7 @@ That takes care of all the initial setup and configuration, now let’s get down
 6. Save and close the **task-model.js** file. 
 
 ### Create the controller
-1. In the **routes** directory of your project, create a new file named **tasklist.js**. 
-2. Add code to get list of tasks from Cosmos DB:
+1. In **routes/tasklist.js** add code to get list of tasks from Cosmos DB by replacing ``:
 
     ```nodejs
     let querySpec = {
@@ -210,7 +209,7 @@ That takes care of all the initial setup and configuration, now let’s get down
         });
         });
         ```
-3. Add code to create a task object and insert it:
+2. Add code to create a task object and insert it:
     ```nodejs
     let item = req.body;
 
@@ -223,7 +222,7 @@ That takes care of all the initial setup and configuration, now let’s get down
     });
     ```
 
-4. Add some code to update a task's status:
+3. Add some code to update a task's status:
 
     ```nodejs
     let completedTasks = Object.keys(req.body);
@@ -249,7 +248,7 @@ That takes care of all the initial setup and configuration, now let’s get down
     );
     ```
 
-5. Save and close the **tasklist.js** file.
+4. Save and close the **tasklist.js** file.
 
 ### Update the config.js
 1. In the **config.js** file, update the values of HOST and AUTH_KEY using the values found in the Keys page of your Azure Cosmos DB account on the [Microsoft Azure portal](https://portal.azure.com).
