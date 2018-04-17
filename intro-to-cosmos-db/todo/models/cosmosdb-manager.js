@@ -1,8 +1,8 @@
-let DocumentDBClient = <require statement>;
+let DocumentDBClient = <require package>;
 
 module.exports = {
     getOrCreateDatabase: (client, databaseId, callback) => {
-        let querySpec = <database check query>
+        let querySpec = <database list query>
 
         client.queryDatabases(querySpec).toArray((err, results) => {
         if (err) {
@@ -10,7 +10,9 @@ module.exports = {
         } else {
             if (results.length === 0) {
             let databaseSpec = { id: databaseId };
+
             <create a database>
+            
             } else {
             callback(null, results[0]);
             }
@@ -27,7 +29,9 @@ module.exports = {
         } else {
             if (results.length === 0) {
             let collectionSpec = { id: collectionId };
+
             <create a collection>
+            
             } else {
             callback(null, results[0]);
             }

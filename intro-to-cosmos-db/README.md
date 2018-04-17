@@ -12,12 +12,11 @@ Before following the instructions in this article, you should ensure
 that you have the following:
 
 * If you don't have an Azure subscription, create a [free account](https://azure.microsoft.com/free) before you begin. 
-* [Node.js][Node.js] version v0.10.29 or higher. We recommend Node.js 6.10 or higher.
-* [Express generator](http://www.expressjs.com/starter/generator.html) (you can install this via `npm install express-generator -g`)
-* [Git][Git].
+* [Node.js][Node.js] - We recommend Node.js 6.10 or higher.
+* [Git][Git]
 
 ## Step 1: Create an Azure Cosmos DB database account
-Let's start by creating an Azure Cosmos DB account. If you already have an account or if you are using the Azure Cosmos DB Emulator for this tutorial, you can skip to [Step 2: Create a new Node.js application](#_Toc395783178).
+Let's start by creating an Azure Cosmos DB account. 
 
 1. In a new browser window, sign in to the [Azure portal](https://portal.azure.com/).
 2. Click **Create a resource** > **Databases** > **Azure Cosmos DB**.
@@ -64,9 +63,9 @@ The **package.json** file is one of the files created in the root of the project
 That takes care of all the initial setup and configuration, now let’s get down to why we’re here, and that’s to write some code using Azure Cosmos DB.
 
 ### Create the database manager
-1. In **cosmosdb-manager.js** add a reference to the cosmos db node package by replacing `<require package>` with `require('documentdb').DocumentClient;`
+1. In **modules/cosmosdb-manager.js** add a reference to the cosmos db node package by replacing `<require package>` with `require('documentdb').DocumentClient;`
 
-2. Under the `getOrCreateDatabase` add in the query to get a list of databases:
+2. Under the `getOrCreateDatabase` add in the query to get a list of databases by replacing `<database list query>`:
 
     ```nodejs
     {
@@ -74,14 +73,14 @@ That takes care of all the initial setup and configuration, now let’s get down
         parameters: [{ name: '@id', value: databaseId }]
     };
 
-3. Add a create database statement.
+3. Add a create database statement by replacing `<create a database>`.
 
     ```nodejs
     client.createDatabase(databaseSpec, (err, created) => {
                 callback(null, created);
             });
 
-4. Under the `getOrCreateCollection` add in the query to get a list of collections:
+4. Under the `getOrCreateCollection` add in the query to get a list of collections by replacing `<collection check query>`:
 
     ```nodejs
     {
@@ -89,7 +88,7 @@ That takes care of all the initial setup and configuration, now let’s get down
         parameters: [{ name: '@id', value: collectionId }]
     };
 
-5. Add a create collection statement:
+5. Add a create collection statement by replacing `<create a collection>`:
 
     ```nodejs
     client.createCollection(databaseLink, collectionSpec, (err, created) => {
@@ -100,7 +99,7 @@ That takes care of all the initial setup and configuration, now let’s get down
 
 ### Create model
 
-1. Initialize the database objects in the model in the `init` function:
+1. In **models/task-model.js** initialize the database objects in the `init` function by replacing `<initialize database objects>`:
 
     ```nodejs
     docdbUtils.getOrCreateDatabase(self.client, self.databaseId, function(err, db) {
@@ -116,7 +115,7 @@ That takes care of all the initial setup and configuration, now let’s get down
             }
             });
         }
-        });    
+    });    
     ```
 
 2. Add code for querying cosmos db:
@@ -426,3 +425,7 @@ Let's add some intelligence to the app to allow you to upload photos of handwrit
     ```nodejs
     app.post('/handwritingtask', taskList.handwritingTask);
     ```
+
+[Node.js]: http://nodejs.org/
+[Git]: http://git-scm.com/
+[GitHub]: https://github.com/Azure-Samples/documentdb-node-todo-app
