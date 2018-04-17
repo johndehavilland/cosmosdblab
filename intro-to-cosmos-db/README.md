@@ -379,13 +379,13 @@ Let's add some intelligence to the app to allow you to upload photos of handwrit
 1. Add the following to the index.jade file to create the upload form:
 
     ```nodejs
-    form(method="post", enctype="multipart\/form-data", action="/handwritingtask")
-    input(type="hidden", name="sid", value=sessionId)
+        form(method="post", enctype="multipart\/form-data", action="/handwritingtask")
+        input(type="hidden", name="sid", value=sessionId)
 
-    p Image:
-        input(type="file", name="image")
-    p
-        input(type="submit", value="upload")
+        p Image:
+            input(type="file", name="image")
+        p
+            input(type="submit", value="upload")
     ```
 
 2. Open **tasklist.js** under routes and add the following task:
