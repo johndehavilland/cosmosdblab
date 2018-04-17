@@ -303,38 +303,38 @@ Now let’s turn our attention to building the user interface so a user can actu
     block content
         h1 #{title}
         br
-
+    
         form(action="/completetask", method="post")
             table.table.table-striped.table-bordered
-            tr
-                td Name
-                td Category
-                td Date
-                td Complete
-            if (typeof tasks === "undefined")
                 tr
-                td
-            else
-                each task in tasks
-                tr
-                    td #{task.name}
-                    td #{task.category}
-                    - var date  = new Date(task.date);
-                    - var day   = date.getDate();
-                    - var month = date.getMonth() + 1;
-                    - var year  = date.getFullYear();
-                    td #{month + "/" + day + "/" + year}
-                    td
-                    input(type="checkbox", name="#{task.id}", value="#{!task.completed}", checked=task.completed)
+                    td Name
+                    td Category
+                    td Date
+                    td Complete
+                if (typeof tasks === "undefined")
+                    tr
+                        td
+                else
+                    each task in tasks
+                        tr
+                            td #{task.name}
+                            td #{task.category}
+                            - var date  = new Date(task.date);
+                            - var day   = date.getDate();
+                            - var month = date.getMonth() + 1;
+                            - var year  = date.getFullYear();
+                            td #{month + "/" + day + "/" + year}
+                            td
+                                input(type="checkbox", name="#{task.id}", value="#{!task.completed}", checked=task.completed)
             button.btn.btn-primary(type="submit") Update tasks
         hr
         form.well(action="/addtask", method="post")
             .form-group
-            label(for="name") Item Name:
-            input.form-control(name="name", type="textbox")
+                label(for="name") Item Name:
+                input.form-control(name="name", type="textbox")
             .form-group
-            label(for="category") Item Category:
-            input.form-control(name="category", type="textbox")
+                label(for="category") Item Category:
+                input.form-control(name="category", type="textbox")
             br
             button.btn(type="submit") Add item
     ```
@@ -367,7 +367,7 @@ This should be all that we need for our application to work.
 
 5. To stop the application, press CTRL+C in the terminal window and then click **Y** to terminate the batch job.
 
-## Step 7: Add Intelligence to App
+## Step 7: Add Artificial Intelligence to the Application
 
 Let's add some intelligence to the app to allow you to upload photos of handwritten tasks. To do this we will use the Azure Cognitive Service for handwriting recognition.
 
@@ -428,7 +428,7 @@ Let's add some intelligence to the app to allow you to upload photos of handwrit
     ```nodejs
     app.post('/handwritingtask', taskList.handwritingTask);
     ```
-5. Tst the application on your local machine, run `npm start` in the terminal to start your application, then refresh your [http://localhost:3000](http://localhost:3000) browser page. 
+5. Test the application on your local machine, run `npm start` in the terminal to start your application, then refresh your [http://localhost:3000](http://localhost:3000) browser page. 
 
 
 [Node.js]: http://nodejs.org/
