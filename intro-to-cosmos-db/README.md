@@ -192,23 +192,24 @@ That takes care of all the initial setup and configuration, now let’s get down
         query: 'SELECT * FROM root r WHERE r.completed=@completed',
         parameters: [
             {
-            name: '@completed',
-            value: false
+                name: '@completed',
+                value: false
             }
         ]
-        };
+    };
 
-        self.taskModel.find(querySpec, function(err, items) {
-            if (err) {
-                throw err;
-            }
+    self.taskModel.find(querySpec, function(err, items) {
+        if (err) {
+            throw err;
+        }
 
-            res.render('index', {
-                title: 'My ToDo List ',
-                tasks: items
-            });
+        res.render('index', {
+            title: 'My ToDo List ',
+            tasks: items
         });
-        ```
+    });
+    ```
+    
 2. Add code to create a task object and insert it:
     ```nodejs
     let item = req.body;
