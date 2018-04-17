@@ -19,9 +19,9 @@ that you have the following:
 ## Step 1: Create an Azure Cosmos DB database account
 Let's start by creating an Azure Cosmos DB account. If you already have an account or if you are using the Azure Cosmos DB Emulator for this tutorial, you can skip to [Step 2: Create a new Node.js application](#_Toc395783178).
 
-[!INCLUDE [cosmos-db-create-dbaccount](../../includes/cosmos-db-create-dbaccount.md)]
+[!INCLUDE [cosmos-db-create-dbaccount](./includes/cosmos-db-create-dbaccount.md)]
 
-[!INCLUDE [cosmos-db-keys](../../includes/cosmos-db-keys.md)]
+[!INCLUDE [cosmos-db-keys](./includes/cosmos-db-keys.md)]
 
 ## Step 2: Download NodeJS Cosmos DB Framework app
 1. Clone this repository and in a terminal navigate to the ToDo app.
