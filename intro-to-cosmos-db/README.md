@@ -345,11 +345,11 @@ This should be all that we need for our application to work.
 
 Let's add some intelligence to the app to allow you to upload photos of handwritten tasks. To do this we will use the Azure Cognitive Service for handwriting recognition.
 
-## Step 1: Create Cognitive Service
+### Create Cognitive Service
 1. Go to the Azure Portal and choose New.
 2. Search for *Computer Vision API* and create this service.
 
-## Step 2: Update App to use this service
+### Update App to use this service
 1. Add the following to the index.jade file to create the upload form:
 
     ```nodejs
