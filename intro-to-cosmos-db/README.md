@@ -342,3 +342,61 @@ This should be all that we need for our application to work.
 5. To stop the application, press CTRL+C in the terminal window and then click **Y** to terminate the batch job.
 
 ## Step 7: Add Intelligence to App
+
+Let's add some intelligence to the app to allow you to upload photos of handwritten tasks. To do this we will use the Azure Cognitive Service for handwriting recognition.
+
+## Step 1: Create Cognitive Service
+1. Go to the Azure Portal and choose New.
+2. Search for *Computer Vision API* and create this service.
+
+## Step 2: Update App to use this service
+1. Add the following to the index.jade file to create the upload form:
+
+    ```nodejs
+    form(method="post", enctype="multipart\/form-data", action="/handwritingtask")
+    input(type="hidden", name="sid", value=sessionId)
+
+    p Image:
+        input(type="file", name="image")
+    p
+        input(type="submit", value="upload")
+    ```
+
+2. Open **tasklist.js** under routes and add the following task:
+
+    ```nodejs
+    handwritingTask: function(req, res) {
+        var options = {
+            url: 'https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze',
+            qs: {
+                visualFeatures: 'Categories', 
+                details: '', 
+                language: 'en'
+            },
+            headers: {
+                'Content-Type': 'application/octet-stream',
+                'Ocp-Apim-Subscription-Key': '<key>'
+            },
+            body: req.content
+            };
+            
+            request.post(options, function (error, response, body) {
+                console.log(body);
+                //TODO fix this - need to parse the result and create item object
+                let item = body;
+
+                self.taskModel.addItem(item, function(err) {
+                if (err) {
+                    throw err;
+                }
+
+                res.redirect('/');
+            });
+    }
+    }
+    ```
+3. Update the key in the above with your cognitive service key.
+4. Add the following to app.js:
+    ```nodejs
+    app.post('/handwritingtask', taskList.handwritingTask);
+    ```
