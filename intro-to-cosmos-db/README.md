@@ -296,47 +296,48 @@ That takes care of all the initial setup and configuration, now let’s get down
 Now let’s turn our attention to building the user interface so a user can actually interact with our application. The Express application we created uses **Jade** as the view engine. For more information on Jade please refer to [http://jade-lang.com/](http://jade-lang.com/).
 
 1. The **layout.jade** file in the **views** directory is used as a global template for other **.jade** files. In this step you will modify it to use [Twitter Bootstrap](https://github.com/twbs/bootstrap), which is a toolkit that makes it easy to design a nice looking website. 
-3. Now open the **index.jade** file, the view that will be used by our application, and replace the content of the file with the following:
-   
-        extends layout
-        block content
-           h1 #{title}
-           br
-        
-           form(action="/completetask", method="post")
-             table.table.table-striped.table-bordered
-               tr
-                 td Name
-                 td Category
-                 td Date
-                 td Complete
-               if (typeof tasks === "undefined")
-                 tr
-                   td
-               else
-                 each task in tasks
-                   tr
-                     td #{task.name}
-                     td #{task.category}
-                     - var date  = new Date(task.date);
-                     - var day   = date.getDate();
-                     - var month = date.getMonth() + 1;
-                     - var year  = date.getFullYear();
-                     td #{month + "/" + day + "/" + year}
-                     td
-                       input(type="checkbox", name="#{task.id}", value="#{!task.completed}", checked=task.completed)
-             button.btn.btn-primary(type="submit") Update tasks
-           hr
-           form.well(action="/addtask", method="post")
-             .form-group
-               label(for="name") Item Name:
-               input.form-control(name="name", type="textbox")
-             .form-group
-               label(for="category") Item Category:
-               input.form-control(name="category", type="textbox")
-             br
-             button.btn(type="submit") Add item
-   
+3. Now open the **views/index.jade** file, the view that will be used by our application, and replace the content of the file with the following:
+
+    ```nodejs
+    extends layout
+    block content
+        h1 #{title}
+        br
+
+        form(action="/completetask", method="post")
+            table.table.table-striped.table-bordered
+            tr
+                td Name
+                td Category
+                td Date
+                td Complete
+            if (typeof tasks === "undefined")
+                tr
+                td
+            else
+                each task in tasks
+                tr
+                    td #{task.name}
+                    td #{task.category}
+                    - var date  = new Date(task.date);
+                    - var day   = date.getDate();
+                    - var month = date.getMonth() + 1;
+                    - var year  = date.getFullYear();
+                    td #{month + "/" + day + "/" + year}
+                    td
+                    input(type="checkbox", name="#{task.id}", value="#{!task.completed}", checked=task.completed)
+            button.btn.btn-primary(type="submit") Update tasks
+        hr
+        form.well(action="/addtask", method="post")
+            .form-group
+            label(for="name") Item Name:
+            input.form-control(name="name", type="textbox")
+            .form-group
+            label(for="category") Item Category:
+            input.form-control(name="category", type="textbox")
+            br
+            button.btn(type="submit") Add item
+    ```
 
 This extends layout, and provides content for the **content** placeholder we saw in the **layout.jade** file earlier.
    
