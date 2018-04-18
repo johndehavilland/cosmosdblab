@@ -392,33 +392,60 @@ Let's add some intelligence to the app to allow you to upload photos of handwrit
 
     ```nodejs
     ,
-
     handwritingTask: function(req, res) {
-        var options = {
-            url: 'https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze',
-            qs: {
-                visualFeatures: 'Categories', 
-                details: '', 
-                language: 'en'
-            },
-            headers: {
-                'Content-Type': 'application/octet-stream',
-                'Ocp-Apim-Subscription-Key': '<vision api key>'
-            },
-            body: req.content
-        };
+        var apikey = '<enter-api-key>'
+        var fstream;
+        req.pipe(req.busboy);
+        req.busboy.on('file', function (fieldname, file, filename) {
+            console.log("Uploading: " + filename);
+
+            //Path where image will be uploaded
+            fstream = fs.createWriteStream('public/'+ filename);
+            file.pipe(fstream);
+            fstream.on('close', function () { 
+                fs.readFile('public/'+ filename, function(err, data) {
+                    if (err)
+                        console.log("read jpg fail " + err);
+                    else {
+                        
+
+                        var post_options = {
+                            url: 'https: //westus.api.cognitive.microsoft.com/vision/v1.0/recognizeText?handwriting=true',
+                            qs: {
+                                "detectOrientation ": "true", 
+                                language: 'en'
+                            },
+                            headers: {
+                                'Content-Type': 'application/octet-stream',
+                                'Ocp-Apim-Subscription-Key': apikey,
+                                'Content-Length': data.length
+                            },
+                            body: data
+                        };
+                
+                            request.post(post_options, function (error, response, body) {
+                                console.log(body);
+                                
+                                operationLocation = response.headers['operation-location'
+                            ];
+                                var options = {
+                                url: operationLocation,
+                                method: 'GET',
+                                headers: {
+                                    'Ocp-Apim-Subscription-Key': apikey,
+                                }
+                            };
+                                console.log(operationLocation);
+                                sleep.sleep(5);
+                                request.get(options, function (error, response, body) {
+                                    console.log(body);
+                            });
             
-        request.post(options, function (error, response, body) {
-            console.log(body);
-            //TODO fix this - need to parse the result and create item object
-            let item = body;
-
-            self.taskModel.addItem(item, function(err) {
-                if (err) {
-                    throw err;
-                }
-
-                res.redirect('/');
+                            res.redirect('/');
+                        });
+                    }
+                    console.log("Upload Finished of " + filename);
+                });
             });
         });
     }

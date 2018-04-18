@@ -1,5 +1,9 @@
 let DocumentDBClient = require('documentdb').DocumentClient;
 let async = require('async');
+var request = require('request');
+var fs = require('fs-extra');       //File System - for file manipulation
+var https=require ('https');
+var sleep = require('sleep');
 
 function TaskList(taskModel) {
     this.taskModel = taskModel;
