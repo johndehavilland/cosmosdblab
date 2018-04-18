@@ -423,25 +423,22 @@ Let's add some intelligence to the app to allow you to upload photos of handwrit
                             body: data
                         };
                 
-                            request.post(post_options, function (error, response, body) {
-                                console.log(body);
-                                
-                                operationLocation = response.headers['operation-location'
-                            ];
-                                var options = {
-                                url: operationLocation,
-                                method: 'GET',
-                                headers: {
-                                    'Ocp-Apim-Subscription-Key': apikey,
-                                }
-                            };
-                                console.log(operationLocation);
-                                sleep.sleep(5);
-                                request.get(options, function (error, response, body) {
-                                    console.log(body);
-                            });
-            
-                            res.redirect('/');
+                        request.get(options, function (error, response, body) {
+                            console.log(body);
+                            var responseJson = JSON.parse(body);
+                            for (var line in responseJson.recognitionResult.lines) {
+                                console.log(responseJson.recognitionResult.lines[line].text);
+                                var item = {};
+                                item.name = responseJson.recognitionResult.lines[line].text;
+                                item.category = 'mobile';
+                                self.taskModel.addItem(item, function (err) {
+                                    if (err) {
+                                        throw err;
+                                    }
+
+                                });
+                            }
+                             res.redirect('/');
                         });
                     }
                     console.log("Upload Finished of " + filename);
