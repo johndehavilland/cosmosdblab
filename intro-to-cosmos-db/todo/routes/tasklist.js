@@ -3,7 +3,7 @@ let async = require('async');
 var request = require('request');
 var fs = require('fs-extra');       //File System - for file manipulation
 var https=require ('https');
-var sleep = require('sleep');
+var sleep = require('system-sleep');
 
 function TaskList(taskModel) {
     this.taskModel = taskModel;

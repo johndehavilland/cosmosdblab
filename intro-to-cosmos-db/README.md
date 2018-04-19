@@ -392,37 +392,50 @@ Let's add some intelligence to the app to allow you to upload photos of handwrit
 
     ```nodejs
     ,
-    handwritingTask: function(req, res) {
-        var apikey = '<enter-api-key>'
-        var fstream;
-        req.pipe(req.busboy);
-        req.busboy.on('file', function (fieldname, file, filename) {
-            console.log("Uploading: " + filename);
 
-            //Path where image will be uploaded
-            fstream = fs.createWriteStream('public/'+ filename);
-            file.pipe(fstream);
-            fstream.on('close', function () { 
-                fs.readFile('public/'+ filename, function(err, data) {
-                    if (err)
-                        console.log("read jpg fail " + err);
-                    else {
-                        
+handwritingTask: function (req, res) {
+    let self = this;
+    var fstream;
+    var apikey = "<api-key>";
+    req.pipe(req.busboy);
+    req.busboy.on('file', function (fieldname, file, filename) {
+        console.log("Uploading: " + filename);
+        
+        //Path where image will be uploaded
+        fstream = fs.createWriteStream('public/' + filename);
+        file.pipe(fstream);
+        fstream.on('close', function () {
+            fs.readFile('public/' + filename, function (err, data) {
+                if (err)
+                    console.log("read jpg fail " + err);
+                else {
+                    var post_options = {
+                        url: 'https://westus.api.cognitive.microsoft.com/vision/v1.0/recognizeText?handwriting=true',
+                        qs: {
+                            "detectOrientation ": "true",
+                            language: 'en'
+                        },
+                        headers: {
+                            'Content-Type': 'application/octet-stream',
+                            'Ocp-Apim-Subscription-Key': apikey,
+                            'Content-Length': data.length
+                        },
+                        body: data
+                    };
 
-                        var post_options = {
-                            url: 'https: //westus.api.cognitive.microsoft.com/vision/v1.0/recognizeText?handwriting=true',
-                            qs: {
-                                "detectOrientation ": "true", 
-                                language: 'en'
-                            },
+                    request.post(post_options, function (error, response, body) {
+                        console.log(body);
+
+                        operationLocation = response.headers['operation-location'];
+                        var options = {
+                            url: operationLocation,
+                            method: 'GET',
                             headers: {
-                                'Content-Type': 'application/octet-stream',
                                 'Ocp-Apim-Subscription-Key': apikey,
-                                'Content-Length': data.length
-                            },
-                            body: data
+                            }
                         };
-                
+                        console.log(operationLocation);
+                        sleep(5000);
                         request.get(options, function (error, response, body) {
                             console.log(body);
                             var responseJson = JSON.parse(body);
@@ -438,14 +451,17 @@ Let's add some intelligence to the app to allow you to upload photos of handwrit
 
                                 });
                             }
-                             res.redirect('/');
+                            res.redirect('/');
                         });
-                    }
-                    console.log("Upload Finished of " + filename);
-                });
+
+                        
+                    });
+                }
+                console.log("Upload Finished of " + filename);
             });
         });
-    }
+    });
+}
     ```
 3. Update the `<vision api key>` in the above with your cognitive service key.
 4. Add the following to app.js:
